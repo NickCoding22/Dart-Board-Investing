@@ -8,8 +8,8 @@ class DartboardInvestor :
     ending_spot = 7706
     stock_file_path = "./Dart-Board-Investing/nasdaq_screener_1684901667987.csv"
     stock_tester = StockClasses.StockValidator()
-    # r = random.Random() # True (sorta) randomness used in actual project
-    r = random.Random(456) # Seeded randomness used in testing
+    r = random.Random() # True (sorta) randomness used in actual project
+    # r = random.Random(456) # Seeded randomness used in testing
 
     # Generates and processes stocks
     def __init__ (self):
@@ -75,3 +75,18 @@ stockValidator = StockClasses.StockValidator()
 stockHandler = StockClasses.StockHandler()
 dartboardInvestor = DartboardInvestor()
 stockValidator.validate_stocks(dartboardInvestor.stock_tickers[1:])
+
+# Testing StockHandler class 
+
+STAA = {}
+i = 1
+while i < 5:
+    amount = 25
+    if i > 2:
+        amount = 50
+    if i > 3:
+        amount = 75
+    STAA[dartboardInvestor.stock_tickers[i]] = amount
+    i += 1
+stockHandler.generate_order_data(STAA) # Orders are properly generated at the varying amounts
+stockHandler.place_orders() # Orders are properly placed

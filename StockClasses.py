@@ -39,31 +39,37 @@ class StockHandler:
 
     # Prints the info with the universal [trading_client] and [account].
     def __init__ (self):
+        self.market_orders = [] # List of market order data
         for property_name, value in account:
             print(f"\"{property_name}\": {value}")
 
-    # Takes in a list of stock tickers (stocks) and generates the given assets. 
-    # Using stocks, a list of orders are created and returned.
-    def generate_orders (self, stock_tickers, amounts) :
-        return None
+    # Takes in a dictionary of [stock_tickers] and [amounts] 
+    # and generates the given order data. 
+    # [market_orders] is then filled with the generated
+    # market order data for each stock ticker and amount
+    def generate_order_data (self, stock_tickers_and_amounts) :
+        for stock_ticker in stock_tickers_and_amounts.keys():
+            amount = stock_tickers_and_amounts[stock_ticker]
+            print(amount)
+            market_order_data = MarketOrderRequest(
+                                            symbol = stock_ticker,
+                                            notional = amount,
+                                            side = OrderSide.BUY,
+                                            time_in_force=TimeInForce.DAY
+            )
+            print(market_order_data)
+            self.market_orders.append(market_order_data)
 
     # Writes the give orders to a text file to keep track.
     def write_orders_to_file (self, orders) :
         return None
 
-    # Given a list of stocks with associated amounts and stock tickers, 
-    # the orders are placed.
-    def place_orders (self, stocks) :
-        return None
-
-# Setting parameters for our buy order
-# market_order_data = MarketOrderRequest(
-#                       symbol="BTC/USD",
-#                       qty=1,
-#                       side=OrderSide.BUY,
-#                       time_in_force=TimeInForce.GTC
-#                   )
-
-# market_order = trading_client.submit_order(market_order_data)
-# for property_name, value in market_order:
-#   print(f"\"{property_name}\": {value}")
+    # Using the local list of market_order_data, in [market_orders] 
+    # the orders are placed
+    def place_orders (self) :
+        i = 1
+        for market_order_data in self.market_orders:
+            market_order = trading_client.submit_order(market_order_data)
+            print("Order #" + str(i) + " has been submitted.")
+            print(market_order)
+            i += 1
