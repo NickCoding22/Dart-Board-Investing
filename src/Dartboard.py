@@ -6,10 +6,10 @@ class DartboardInvestor :
     num_stocks = 22
     starting_spot = 2
     ending_spot = 7706
-    stock_file_path = "./Dart-Board-Investing/nasdaq_screener_1684901667987.csv"
+    stock_file_path = "/home/pi/DartBoard Project/Dart-Board-Investing/nasdaq_screener_1684901667987.csv"
     stock_tester = StockClasses.StockValidator()
-    r = random.Random() # True (sorta) randomness used in actual project
-    # r = random.Random(456) # Seeded randomness used in testing
+    # r = random.Random() # True (sorta) randomness used in actual project
+    r = random.Random(456) # Seeded randomness used in testing
 
     # Generates and processes stocks
     def __init__ (self):
@@ -68,25 +68,33 @@ class DartboardInvestor :
             self.stock_tickers.append(stock_info[0:stock_info.index(",")])
             print_output = "Stock " + str(dart_score) + ": " + self.stock_tickers[dart_score]
             print(print_output)
+            
+    # Converting a list of values and amounts to
+    # stock tickers and amounts.
+    def convert_to_stocks (self, score_n_amounts) :
+        stocks_n_amounts = {}
+        for score in list(score_n_amounts.keys()) :
+            stocks_n_amounts[self.stock_tickers[score]] = score_n_amounts[score]
+        return stocks_n_amounts
 
 # Process to get random stocks and assign them to certain values
 
-stockValidator = StockClasses.StockValidator()
-stockHandler = StockClasses.StockHandler()
-dartboardInvestor = DartboardInvestor()
-stockValidator.validate_stocks(dartboardInvestor.stock_tickers[1:])
+# stockValidator = StockClasses.StockValidator()
+# stockHandler = StockClasses.StockHandler()
+# dartboardInvestor = DartboardInvestor()
+# stockValidator.validate_stocks(dartboardInvestor.stock_tickers[1:])
 
 # Testing StockHandler class 
 
-STAA = {}
-i = 1
-while i < 5:
-    amount = 25
-    if i > 2:
-        amount = 50
-    if i > 3:
-        amount = 75
-    STAA[dartboardInvestor.stock_tickers[i]] = amount
-    i += 1
-stockHandler.generate_order_data(STAA) # Orders are properly generated at the varying amounts
-stockHandler.place_orders() # Orders are properly placed
+# STAA = {}
+# i = 1
+# while i < 5:
+#     amount = 25
+#     if i > 2:
+#         amount = 50
+#     if i > 3:
+#         amount = 75
+#     STAA[dartboardInvestor.stock_tickers[i]] = amount
+#     i += 1
+# stockHandler.generate_order_data(STAA) # Orders are properly generated at the varying amounts
+# stockHandler.place_orders() # Orders are properly placed

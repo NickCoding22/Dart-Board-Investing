@@ -59,6 +59,7 @@ class StockHandler:
             )
             print(market_order_data)
             self.market_orders.append(market_order_data)
+        print("Orders Successfully Generated")
 
     # Writes the give orders to a text file to keep track.
     def write_orders_to_file (self, orders) :
