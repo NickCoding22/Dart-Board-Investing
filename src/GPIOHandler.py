@@ -58,6 +58,7 @@ def collect_scores ():
                     score_and_multiplier[score] = multiplier
                     #score_and_multiplier[interpret_input(i_pin, o_pin)] = get_multiplier(i_pin, o_pin, score_and_multiplier)
                     hits_read += 1
+                    print("Hits remaining: " + str(10 - hits_read)) 
                     time.sleep(0.5)
             GPIO.output(o_pin, False)
             #time.sleep(.001)
